@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initiale-scale=1">
+	<title>TTC</title>
+	<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+	<main>
+		<header class="mainHeader">
+			<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 512 640" enable-background="new 0 0 512 512" xml:space="preserve" class="mainHeader__icon"><g><path d="M404.8,2H107.2C75.3,2,49.3,28,49.3,59.9v297.6c0,31.9,26,57.9,57.9,57.9h11.4L75,502.6l14.8,7.4l14.2-28.5H408l14.2,28.5   l14.8-7.4l-43.6-87.2h11.4c31.9,0,57.9-26,57.9-57.9V59.9C462.7,28,436.7,2,404.8,2z M399.7,465H112.3l24.8-49.6h237.8L399.7,465z    M446.1,357.5c0,22.8-18.5,41.3-41.3,41.3H107.2c-22.8,0-41.3-18.5-41.3-41.3V59.9c0-22.8,18.5-41.3,41.3-41.3h297.6   c22.8,0,41.3,18.5,41.3,41.3V357.5z"/><path d="M90.7,266.6h330.7V101.2H90.7V266.6z M404.8,250H264.3V117.7h140.5V250z M107.2,117.7h140.5V250H107.2V117.7z"/><path d="M330.4,35.1H181.6v49.6h148.8V35.1z M313.9,68.1H198.1V51.6h115.7V68.1z"/><path d="M156.8,291.4c-22.8,0-41.3,18.5-41.3,41.3S134,374,156.8,374c22.8,0,41.3-18.5,41.3-41.3S179.6,291.4,156.8,291.4z    M156.8,357.5c-13.7,0-24.8-11.1-24.8-24.8s11.1-24.8,24.8-24.8c13.7,0,24.8,11.1,24.8,24.8S170.5,357.5,156.8,357.5z"/><path d="M355.2,291.4c-22.8,0-41.3,18.5-41.3,41.3s18.5,41.3,41.3,41.3c22.8,0,41.3-18.5,41.3-41.3S378,291.4,355.2,291.4z    M355.2,357.5c-13.7,0-24.8-11.1-24.8-24.8s11.1-24.8,24.8-24.8c13.7,0,24.8,11.1,24.8,24.8S368.9,357.5,355.2,357.5z"/><rect x="247.7" y="324.4" width="16.5" height="16.5"/><rect x="214.7" y="324.4" width="16.5" height="16.5"/><rect x="280.8" y="324.4" width="16.5" height="16.5"/></g></svg>
+			<h1>Union Times</h1>
+		</header>
+		<section class="times">
+			
+		</section>
+		<footer class="mainFooter">
+			<p>Created by Icon Fair from the Noun Project</p>
+		</footer>
+	</main>
+	<script src="js/templater.js"></script>
+	<script src="js/script.js"></script>
+	<script>
+		if('serviceWorker' in navigator) {
+			navigator.serviceWorker.register('./sw.js')
+				.then(reg => {
+					console.log('Service Worker Registered')
+				})
+				.catch(err => {
+					console.log(`Error registering worker ${err}`);
+				})
+		}
+	</script>
+</body>
+</html>
