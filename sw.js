@@ -1,5 +1,7 @@
+const cacheVersion = 'union-times-v3';
+
 self.addEventListener('install', function(e) {
-	caches.open('union-times')
+	caches.open(cacheVersion)
 		.then(function(cache) {
 			return cache.addAll([
 				'',
@@ -11,17 +13,39 @@ self.addEventListener('install', function(e) {
 		.catch(console.log);
 });
 
+self.addEventListener('activate', function(e) {
+	e.waitUntil(
+		caches.keys().then((cacheNames) => {
+			return Promise.all(
+				cacheNames.filter(() => true)
+					.map((cache) => caches.delete(cache))
+			);
+		})
+	);
+});
+
 self.addEventListener('fetch', function(e) {
 	e.respondWith(
-		caches.open('union-times')
-			.then(function(cache) {
-				return caches.match(e.request)
-					.then(function(res) {
-						return res || fetch(e.request).then(res => {
-							e.request.url.match('chrome-extension://') ? '' : cache.put(e.request, res.clone());
-							//then return it from the cache
-							return res;
+		fetch(e.request)
+			.then((response) => {
+				return caches.open(cacheVersion)
+					.then(function(cache) {
+						return caches.match(e.request)
+							.then(function(res) {
+							e.request.url.match('chrome-extension://') ? 
+							'' : 
+							cache.put(e.request, response.clone());
+							return response;
 						});
+					});
+			})
+			.catch(() => {
+				return caches.open(cacheVersion)
+					.then(function(cache) {
+						return caches.match(e.request)
+							.then(function(res) {
+								return res;
+							});
 					});
 			})
 	);
