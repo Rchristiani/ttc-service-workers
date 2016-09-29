@@ -24,29 +24,33 @@ self.addEventListener('activate', function(e) {
 	);
 });
 
+function pullFromCache(e) {
+	return caches.open(cacheVersion)
+		.then(function(cache) {
+			return caches.match(e.request)
+				.then(function(res) {
+					return res;
+				});
+		});
+}
+
+function networkThenCache(response,e) {
+	return caches.open(cacheVersion)
+		.then(function(cache) {
+			return caches.match(e.request)
+				.then(function(res) {
+				e.request.url.match('chrome-extension://') ? 
+				'' : 
+				cache.put(e.request, response.clone());
+				return response;
+			});
+		});
+}
+
 self.addEventListener('fetch', function(e) {
 	e.respondWith(
 		fetch(e.request)
-			.then((response) => {
-				return caches.open(cacheVersion)
-					.then(function(cache) {
-						return caches.match(e.request)
-							.then(function(res) {
-							e.request.url.match('chrome-extension://') ? 
-							'' : 
-							cache.put(e.request, response.clone());
-							return response;
-						});
-					});
-			})
-			.catch(() => {
-				return caches.open(cacheVersion)
-					.then(function(cache) {
-						return caches.match(e.request)
-							.then(function(res) {
-								return res;
-							});
-					});
-			})
+			.then((response) => networkThenCache(response,e))
+			.catch(() => pullFromCache(e))
 	);
 });
